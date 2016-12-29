@@ -9,20 +9,31 @@
 */
 
 import Commander
+import Environment
 
 func unimplemented() {
   print("Not implemented")
 }
 
 Group {
-  $0.command("install") {
-    unimplemented()
+  $0.command("install",
+    Argument<String>("version"),
+    description: "Install specified version of toolchain"
+  ) { version in
+    print("Should I install \(version) version?")
+    let path = Env["SWIFTUP_ROOT"]!
+    print("\(path)")
   }
 
   $0.command("show",
     description: "Show the active and installed toolchains"
   ) {
-    unimplemented()
+    let toolchains = Toolchains()
+    if let versions = toolchains.installedVersions() {
+      print("\(versions)")
+    } else {
+      print("No installed versions found!")
+    }
   }
 
   $0.command("upgrade") { (name:String) in
@@ -39,5 +50,5 @@ Group {
     } else {
       print("Locally searching for \(query).")
     }
-  } */
+  }*/
 }.run()
