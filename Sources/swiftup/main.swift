@@ -20,9 +20,7 @@ Group {
     Argument<String>("version"),
     description: "Install specified version of toolchain"
   ) { version in
-    print("Should I install \(version) version?")
-    let path = Env["SWIFTUP_ROOT"]!
-    print("\(path)")
+    install(version: version)
   }
 
   $0.command("show",
@@ -30,7 +28,9 @@ Group {
   ) {
     let toolchains = Toolchains()
     if let versions = toolchains.installedVersions() {
-      print("\(versions)")
+      versions.forEach {
+        print($0)
+      }
     } else {
       print("No installed versions found!")
     }

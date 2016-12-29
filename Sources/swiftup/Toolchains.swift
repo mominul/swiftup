@@ -11,16 +11,6 @@
 import Foundation
 import Environment
 
-extension String {
-  func addingPath(_ path: String) -> String {
-    if (self.hasSuffix("/") && !path.hasPrefix("/")) || (!self.hasSuffix("/") && path.hasPrefix("/")) {
-      return self + path
-    } else {
-      return self + "/" + path
-    }
-  }
-}
-
 struct Toolchains {
   var versioningFolder: String {
     if let path = Env["SWIFTUP_ROOT"] {
@@ -33,5 +23,15 @@ struct Toolchains {
   func installedVersions() -> [String]? {
     let paths = try? FileManager.default.contentsOfDirectory(atPath: versioningFolder)
     return paths
+  }
+
+  func isInstalled(version: String) -> Bool {
+    if let versions = installedVersions() {
+      return versions.contains {
+        return ($0 == version) ? true : false
+      }
+    }
+
+    return false
   }
 }
