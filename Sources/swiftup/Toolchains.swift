@@ -48,4 +48,50 @@ struct Toolchains {
 
     return false
   }
+
+  func installToolchain(version: String) {
+    let distribution = Distribution(target: version)
+
+    guard !isInstalled(version: distribution.versionName) else {
+      print("Version \(distribution.versionName) is already installed!")
+      return
+    }
+
+    print("Will install version \(distribution.versionName)")
+    installTarToolchain(distribution: distribution)
+    print("Version \(distribution.versionName) has been installed!")
+  }
+
+  func installTarToolchain(distribution: Distribution) {
+    let tempDir = getTempDir().addingPath("swiftup-\(distribution.versionName)")
+    let tempFile = tempDir.addingPath("toolchain.tar.gz")
+    let tempEFile = tempDir.addingPath("\(distribution.fileName)")
+    let installDir = Toolchains().versioningFolder.addingPath("\(distribution.versionName)")
+
+    // Create temp direcyory
+    _ = try! FileManager.default.createDirectory(atPath: tempDir, withIntermediateDirectories: true)
+
+    print("Downloading toolchain \(distribution.downloadUrl)")
+
+    run(program: "/usr/bin/curl", arguments: ["-C", "-", "\(distribution.downloadUrl)", "-o", "\(tempFile)"])
+
+    guard FileManager.default.fileExists(atPath: tempFile) else {
+      print("Error occurred when downloading the toolchain")
+      exit(1)
+    }
+
+    run(program: "/bin/tar", arguments: ["xzf", "\(tempFile)", "-C", "\(tempDir)"])
+
+    guard FileManager.default.fileExists(atPath: tempEFile) else {
+      print("Error occurred when extracting the toolchain")
+      exit(1)
+    }
+
+    moveItem(src: tempEFile, dest: installDir)
+
+    guard FileManager.default.fileExists(atPath: installDir) else {
+      print("Error occurred when installing the toolchain")
+      exit(1)
+    }
+  }
 }

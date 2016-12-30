@@ -16,7 +16,8 @@ Group {
     Argument<String>("version"),
     description: "Install specified version of toolchain"
   ) { version in
-    installToolchain(version: version)
+    let toolchain = Toolchains()
+    toolchain.installToolchain(version: version)
   }
 
   $0.command("show",
