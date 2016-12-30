@@ -11,16 +11,12 @@
 import Commander
 import Environment
 
-func unimplemented() {
-  print("Not implemented")
-}
-
 Group {
   $0.command("install",
     Argument<String>("version"),
     description: "Install specified version of toolchain"
   ) { version in
-    install(version: version)
+    installToolchain(version: version)
   }
 
   $0.command("show",
