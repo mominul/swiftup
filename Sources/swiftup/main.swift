@@ -32,8 +32,11 @@ Group {
     }
   }
 
-  $0.command("upgrade") { (name:String) in
-    unimplemented()
+  $0.command("global",
+    Argument<String>("version"),
+    description: "Set the global toolchain version") { version in
+    var toolchain = Toolchains()
+    toolchain.globalVersion = version
   }
 /*
   $0.command("search",

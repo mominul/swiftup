@@ -20,6 +20,20 @@ struct Toolchains {
     return ""
   }
 
+  var globalVersion: String {
+    get {
+      return (try? String(contentsOfFile: Env["SWIFTUP_ROOT"]!.addingPath("version"), encoding: .utf8)) ?? ""
+    }
+
+    set {
+      if isInstalled(version: newValue) {
+        try? newValue.write(toFile: Env["SWIFTUP_ROOT"]!.addingPath("version"), atomically: true, encoding: .utf8)
+      } else {
+        print("Version \(newValue) is not installed!")
+      }
+    }
+  }
+
   func installedVersions() -> [String]? {
     let paths = try? FileManager.default.contentsOfDirectory(atPath: versioningFolder)
     return paths
