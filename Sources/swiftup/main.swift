@@ -16,7 +16,7 @@ Group {
     Argument<String>("version"),
     description: "Install specified version of toolchain"
   ) { version in
-    let toolchain = Toolchains()
+    var toolchain = Toolchains()
     toolchain.installToolchain(version: version)
   }
 
@@ -39,6 +39,13 @@ Group {
     var toolchain = Toolchains()
     toolchain.globalVersion = version
   }
+
+  $0.command("which",
+    Argument<String>("command"),
+    description: "Display which binary will be run for a given command") { command in
+      let toolchain = Toolchains()
+      print(toolchain.getBinaryPath().addingPath(command))
+    }
 /*
   $0.command("search",
     Flag("web", description: "Searches on cocoapods.org"),

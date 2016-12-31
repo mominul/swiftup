@@ -49,7 +49,11 @@ struct Toolchains {
     return false
   }
 
-  func installToolchain(version: String) {
+  func getBinaryPath() -> String {
+    return versioningFolder.addingPath(globalVersion).addingPath("usr/bin/")
+  }
+
+  mutating func installToolchain(version: String) {
     let distribution = Distribution(target: version)
 
     guard !isInstalled(version: distribution.versionName) else {
@@ -60,6 +64,9 @@ struct Toolchains {
     print("Will install version \(distribution.versionName)")
     installTarToolchain(distribution: distribution)
     print("Version \(distribution.versionName) has been installed!")
+
+    globalVersion = distribution.versionName
+    rehashToolchain()
   }
 
   func installTarToolchain(distribution: Distribution) {
@@ -92,6 +99,23 @@ struct Toolchains {
     guard FileManager.default.fileExists(atPath: installDir) else {
       print("Error occurred when installing the toolchain")
       exit(1)
+    }
+  }
+
+  func rehashToolchain() {
+    let binaryDir = versioningFolder.addingPath(globalVersion).addingPath("usr/bin")
+
+    let binaries = try! FileManager.default.contentsOfDirectory(atPath: binaryDir)
+
+    func createShims(name: String) {
+      let script = "#!/usr/bin/env bash\nset -e\nexec `swiftup which $0` $@\n"
+      let shims = Env["SWIFTUP_ROOT"]!.addingPath("shims/\(name)")
+      try! script.write(toFile: shims, atomically: true, encoding: .utf8)
+      run(program: "/bin/chmod", arguments: ["+x", shims])
+    }
+
+    for binary in binaries {
+      createShims(name: binary)
     }
   }
 }
