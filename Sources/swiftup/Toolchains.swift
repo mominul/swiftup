@@ -29,7 +29,8 @@ struct Toolchains {
 
     set {
       if isInstalled(version: newValue) {
-        try? newValue.write(toFile: Env["SWIFTUP_ROOT"]!.addingPath("version"), atomically: true, encoding: .utf8)
+        //try? newValue.write(toFile: Env["SWIFTUP_ROOT"]!.addingPath("version"), atomically: true, encoding: .utf8)
+        try? writeTo(file: Env["SWIFTUP_ROOT"]!.addingPath("version"), with: newValue)
       } else {
         print("Version \(newValue) is not installed!")
       }
@@ -113,7 +114,7 @@ struct Toolchains {
     func createShims(name: String) {
       let script = "#!/usr/bin/env bash\nset -e\nexec `swiftup which $0` $@\n"
       let shims = Env["SWIFTUP_ROOT"]!.addingPath("shims/\(name)")
-      try! script.write(toFile: shims, atomically: true, encoding: .utf8)
+      try! writeTo(file: shims, with: script)
       run(program: "/bin/chmod", arguments: ["+x", shims])
     }
 

@@ -42,7 +42,19 @@ public func getContentsOf(file: String) throws -> String {
   defer {
     contents.deinitialize(count: Int(BUFSIZ))
     contents.deallocate(capacity: Int(BUFSIZ))
+    fclose(fp)
   }
   fgets(contents, BUFSIZ, fp)
   return String(cString: contents)
+}
+
+public func writeTo(file: String, with: String) throws {
+  let fp = fopen(file, "w")
+
+  if fp == nil {
+    throw NixError.errorOccurred
+  }
+
+  fputs(with, fp)
+  fclose(fp)
 }
