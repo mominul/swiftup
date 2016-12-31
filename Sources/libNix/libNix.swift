@@ -58,3 +58,21 @@ public func writeTo(file: String, with: String) throws {
   fputs(with, fp)
   fclose(fp)
 }
+
+public func fileExists(atPath path: String) -> Bool {
+  var s = stat()
+  if lstat(path, &s) >= 0 {
+    // don't chase the link for this magic case -- we might be /Net/foo
+    // which is a symlink to /private/Net/foo which is not yet mounted...
+    if (s.st_mode & S_IFMT) == S_IFLNK {
+      if (s.st_mode & S_ISVTX) == S_ISVTX {
+        return true
+      }
+      // chase the link; too bad if it is a slink to /Net/foo
+      stat(path, &s)
+    }
+  } else {
+    return false
+  }
+  return true
+}

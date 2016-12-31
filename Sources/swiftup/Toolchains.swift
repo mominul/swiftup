@@ -86,21 +86,21 @@ struct Toolchains {
 
     run(program: "/usr/bin/curl", arguments: ["-C", "-", "\(distribution.downloadUrl)", "-o", "\(tempFile)"])
 
-    guard FileManager.default.fileExists(atPath: tempFile) else {
+    guard fileExists(atPath: tempFile) else {
       print("Error occurred when downloading the toolchain")
       exit(1)
     }
 
     run(program: "/bin/tar", arguments: ["xzf", "\(tempFile)", "-C", "\(tempDir)"])
 
-    guard FileManager.default.fileExists(atPath: tempEFile) else {
+    guard fileExists(atPath: tempEFile) else {
       print("Error occurred when extracting the toolchain")
       exit(1)
     }
 
     moveItem(src: tempEFile, dest: installDir)
 
-    guard FileManager.default.fileExists(atPath: installDir) else {
+    guard fileExists(atPath: installDir) else {
       print("Error occurred when installing the toolchain")
       exit(1)
     }
