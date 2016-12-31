@@ -8,6 +8,7 @@
     Muhammad Mominul Huque
 */
 
+import libNix
 import Foundation
 import Environment
 
@@ -35,7 +36,8 @@ struct Toolchains {
   }
 
   func installedVersions() -> [String]? {
-    let paths = try? FileManager.default.contentsOfDirectory(atPath: versioningFolder)
+    //let paths = try? FileManager.default.contentsOfDirectory(atPath: versioningFolder)
+    let paths = try? contentsOfDirectory(atPath: versioningFolder)
     return paths
   }
 
