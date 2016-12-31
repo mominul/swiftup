@@ -23,7 +23,8 @@ struct Toolchains {
 
   var globalVersion: String {
     get {
-      return (try? String(contentsOfFile: Env["SWIFTUP_ROOT"]!.addingPath("version"), encoding: .utf8)) ?? ""
+      //return (try? String(contentsOfFile: Env["SWIFTUP_ROOT"]!.addingPath("version"), encoding: .utf8)) ?? ""
+      return (try? getContentsOf(file: Env["SWIFTUP_ROOT"]!.addingPath("version"))) ?? ""
     }
 
     set {
@@ -107,7 +108,7 @@ struct Toolchains {
   func rehashToolchain() {
     let binaryDir = versioningFolder.addingPath(globalVersion).addingPath("usr/bin")
 
-    let binaries = try! FileManager.default.contentsOfDirectory(atPath: binaryDir)
+    let binaries = try! contentsOfDirectory(atPath: binaryDir)
 
     func createShims(name: String) {
       let script = "#!/usr/bin/env bash\nset -e\nexec `swiftup which $0` $@\n"

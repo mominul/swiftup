@@ -30,3 +30,19 @@ public func contentsOfDirectory(atPath path: String) throws -> [String] {
 
   return contents
 }
+
+public func getContentsOf(file: String) throws -> String {
+  let fp = fopen(file, "r")
+
+  if fp == nil {
+    throw NixError.errorOccurred
+  }
+
+  let contents = UnsafeMutablePointer<CChar>.allocate(capacity: Int(BUFSIZ))
+  defer {
+    contents.deinitialize(count: Int(BUFSIZ))
+    contents.deallocate(capacity: Int(BUFSIZ))
+  }
+  fgets(contents, BUFSIZ, fp)
+  return String(cString: contents)
+}
