@@ -112,7 +112,7 @@ struct Toolchains {
     let binaries = try! contentsOfDirectory(atPath: binaryDir)
 
     func createShims(name: String) {
-      let script = "#!/usr/bin/env bash\nset -e\nexec `swiftup which $0` $@\n"
+      let script = "#!/usr/bin/env bash\nset -e\nexec `swiftup which \(name)` $@\n"
       let shims = Env["SWIFTUP_ROOT"]!.addingPath("shims/\(name)")
       try! writeTo(file: shims, with: script)
       run(program: "/bin/chmod", arguments: ["+x", shims])
