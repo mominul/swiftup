@@ -76,3 +76,41 @@ public func fileExists(atPath path: String) -> Bool {
   }
   return true
 }
+
+public func createDirectory(atPath path: String) throws {
+  if !fileExists(atPath: path) {
+    let parent = path.deletingLastPathComponent
+    if !fileExists(atPath: parent) {
+      try createDirectory(atPath: parent)
+    }
+
+    if mkdir(path, S_IRWXU | S_IRWXG | S_IRWXO) != 0 {
+      throw NixError.errorOccurred
+    }
+  }
+}
+
+private extension String {
+  func hasPrefix(_ prefix: String) -> Bool {
+    return String(characters.dropLast(characters.count - prefix.characters.count)) == prefix ? true : false
+  }
+  func hasSuffix(_ suffix: String) -> Bool {
+    return String(characters.dropFirst(characters.count - suffix.characters.count)) == suffix ? true : false
+  }
+
+  var deletingLastPathComponent: String {
+    var path = self
+    if hasSuffix("/") {
+      path = String(path.characters.dropLast(1))
+    }
+    var count = 0
+    for char in path.characters.reversed() {
+      if char != "/"  {
+        count += 1
+      } else {
+        break
+      }
+    }
+    return String(path.characters.dropLast(count))
+  }
+}

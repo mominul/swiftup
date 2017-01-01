@@ -80,7 +80,7 @@ struct Toolchains {
     let installDir = Toolchains().versioningFolder.addingPath("\(distribution.versionName)")
 
     // Create temp direcyory
-    _ = try! FileManager.default.createDirectory(atPath: tempDir, withIntermediateDirectories: true)
+    _ = try! createDirectory(atPath: tempDir)
 
     print("Downloading toolchain \(distribution.downloadUrl)")
 
