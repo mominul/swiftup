@@ -32,7 +32,7 @@ struct Toolchains {
         //try? newValue.write(toFile: Env["SWIFTUP_ROOT"]!.addingPath("version"), atomically: true, encoding: .utf8)
         try? writeTo(file: Env["SWIFTUP_ROOT"]!.addingPath("version"), with: newValue)
       } else {
-        print("Version \(newValue) is not installed!")
+        print("Version \(newValue) is not installed!", color: .red)
       }
     }
   }
@@ -61,11 +61,11 @@ struct Toolchains {
     let distribution = Distribution(target: version)
 
     guard !isInstalled(version: distribution.versionName) else {
-      print("Version \(distribution.versionName) is already installed!")
+      print("Version \(distribution.versionName) is already installed!", color: .yellow)
       return
     }
 
-    print("Will install version \(distribution.versionName)")
+    print("Will install version \(distribution.versionName)", color: .blue)
     installTarToolchain(distribution: distribution)
     print("Version \(distribution.versionName) has been installed!")
 
@@ -82,26 +82,26 @@ struct Toolchains {
     // Create temp direcyory
     _ = try! createDirectory(atPath: tempDir)
 
-    print("Downloading toolchain \(distribution.downloadUrl)")
+    print("Downloading toolchain \(distribution.downloadUrl)", color: .white)
 
     run(program: "/usr/bin/curl", arguments: ["-C", "-", "\(distribution.downloadUrl)", "-o", "\(tempFile)"])
 
     guard fileExists(atPath: tempFile) else {
-      print("Error occurred when downloading the toolchain")
+      print("Error occurred when downloading the toolchain", color: .red)
       exit(1)
     }
 
     run(program: "/bin/tar", arguments: ["xzf", "\(tempFile)", "-C", "\(tempDir)"])
 
     guard fileExists(atPath: tempEFile) else {
-      print("Error occurred when extracting the toolchain")
+      print("Error occurred when extracting the toolchain", color: .red)
       exit(1)
     }
 
     moveItem(src: tempEFile, dest: installDir)
 
     guard fileExists(atPath: installDir) else {
-      print("Error occurred when installing the toolchain")
+      print("Error occurred when installing the toolchain", color: .red)
       exit(1)
     }
   }

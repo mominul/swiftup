@@ -26,10 +26,10 @@ Group {
     let toolchains = Toolchains()
     if let versions = toolchains.installedVersions() {
       versions.forEach {
-        print($0)
+        print($0, color: .cyan)
       }
     } else {
-      print("No installed versions found!")
+      print("No installed versions found!", color: .yellow)
     }
   }
 
