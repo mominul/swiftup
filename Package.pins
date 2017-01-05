@@ -14,6 +14,12 @@
       "version": "0.7.0"
     },
     {
+      "package": "Spawn",
+      "reason": null,
+      "repositoryURL": "https://github.com/mominul/Spawn.git",
+      "version": "0.0.4"
+    },
+    {
       "package": "Spectre",
       "reason": null,
       "repositoryURL": "https://github.com/kylef/Spectre",

@@ -10,6 +10,7 @@
 
 import Glibc
 import Foundation
+import Spawn
 import Environment
 
 func unimplemented() {
@@ -22,6 +23,7 @@ func getTempDir() -> String {
 }
 
 func run(program: String, arguments: [String]) {
+  /*
   let pipe = Pipe()
   let task = Process()
 
@@ -36,6 +38,12 @@ func run(program: String, arguments: [String]) {
 
   if output.characters.count > 2 {
     print(output)
+  }*/
+
+  do {
+    _ = try Spawn(args: [program] + arguments)
+  } catch {
+    print("error: \(error)", color: .red)
   }
 }
 
