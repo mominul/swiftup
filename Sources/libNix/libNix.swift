@@ -92,10 +92,17 @@ public func createDirectory(atPath path: String) throws {
 
 public extension String {
   func hasPrefix(_ prefix: String) -> Bool {
-    return String(characters.dropLast(characters.count - prefix.characters.count)) == prefix ? true : false
+    if !(prefix.characters.count > characters.count) {
+      return String(characters.dropLast(characters.count - prefix.characters.count)) == prefix ? true : false
+    }
+    return false
   }
+
   func hasSuffix(_ suffix: String) -> Bool {
-    return String(characters.dropFirst(characters.count - suffix.characters.count)) == suffix ? true : false
+    if !(suffix.characters.count > characters.count) {
+      return String(characters.dropFirst(characters.count - suffix.characters.count)) == suffix ? true : false
+    }
+    return false
   }
 
   var deletingLastPathComponent: String {

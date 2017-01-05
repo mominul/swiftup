@@ -50,6 +50,16 @@ func moveItem(src: String, dest: String) {
   run(program: "/bin/mv", arguments: ["\(src)", "\(dest)"])
 }
 
+func getPlatformID() -> String {
+  var version = ""
+
+  _ = try? Spawn(args: ["/usr/bin/lsb_release", "-ds"]) {
+    version = $0
+  }
+
+  return version.trimmingWhitespacesAndNewlines().lowercased()
+}
+
 extension String {
   func addingPath(_ path: String) -> String {
     if (hasSuffix("/") && !path.hasPrefix("/")) || (!hasSuffix("/") && path.hasPrefix("/")) {
@@ -63,5 +73,15 @@ extension String {
 
   var isUrl: Bool {
     return hasPrefix("https://")
+  }
+
+  func trimmingWhitespacesAndNewlines() -> String {
+    let trimmingChars: [Character] = [" ", "\n"]
+
+    let chars = characters.filter { element in
+      !trimmingChars.contains { return $0 == element }
+    }
+
+    return String(chars)
   }
 }

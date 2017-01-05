@@ -27,6 +27,17 @@ struct Distribution {
       // If the target is a URL, we need to split things that we need from the URL
       arrayOfUrl = target.characters.split(separator: "/").map(String.init)
       downloadUrl = target
+    } else {
+      makeDistributionFrom(version: target)
     }
+  }
+
+  mutating func makeDistributionFrom(version: String) {
+    let osID = getPlatformID()
+    let osIDN = String(osID.characters.filter { !($0 == ".") })
+    let url = "https://swift.org/builds/swift-\(version)-release/\(osIDN)/swift-\(version)-RELEASE/swift-\(version)-RELEASE-\(osID).tar.gz"
+
+    downloadUrl = url
+    arrayOfUrl = url.characters.split(separator: "/").map(String.init)
   }
 }
