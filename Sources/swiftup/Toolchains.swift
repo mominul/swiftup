@@ -8,8 +8,8 @@
     Muhammad Mominul Huque
 */
 
+import Glibc
 import libNix
-import Foundation
 import Environment
 
 struct Toolchains {

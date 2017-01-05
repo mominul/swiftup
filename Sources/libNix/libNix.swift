@@ -90,7 +90,7 @@ public func createDirectory(atPath path: String) throws {
   }
 }
 
-private extension String {
+public extension String {
   func hasPrefix(_ prefix: String) -> Bool {
     return String(characters.dropLast(characters.count - prefix.characters.count)) == prefix ? true : false
   }

@@ -4,8 +4,8 @@
     {
       "package": "Commander",
       "reason": null,
-      "repositoryURL": "https://github.com/kylef/Commander.git",
-      "version": "0.6.0"
+      "repositoryURL": "https://github.com/mominul/Commander.git",
+      "version": "0.7.0"
     },
     {
       "package": "Environment",
@@ -18,12 +18,6 @@
       "reason": null,
       "repositoryURL": "https://github.com/mominul/Spawn.git",
       "version": "0.0.4"
-    },
-    {
-      "package": "Spectre",
-      "reason": null,
-      "repositoryURL": "https://github.com/kylef/Spectre",
-      "version": "0.7.2"
     }
   ],
   "version": 1
