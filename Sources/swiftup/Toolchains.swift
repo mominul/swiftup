@@ -46,9 +46,7 @@ struct Toolchains {
 
   func isInstalled(version: String) -> Bool {
     if let versions = installedVersions() {
-      return versions.contains {
-        return ($0 == version) ? true : false
-      }
+      return versions.contains { $0 == version }
     }
 
     return false
