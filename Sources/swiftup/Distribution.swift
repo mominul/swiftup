@@ -8,6 +8,8 @@
     Muhammad Mominul Huque
 */
 
+import StringPlus
+
 struct Distribution {
   var arrayOfUrl = [String]()
 
@@ -34,7 +36,7 @@ struct Distribution {
 
   mutating func makeDistributionFrom(version: String) {
     let osID = getPlatformID()
-    let osIDN = String(osID.characters.filter { !($0 == ".") })
+    let osIDN = osID.trimmingCharacters(in: ["."])
     let url = "https://swift.org/builds/swift-\(version)-release/\(osIDN)/swift-\(version)-RELEASE/swift-\(version)-RELEASE-\(osID).tar.gz"
 
     downloadUrl = url

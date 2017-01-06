@@ -18,6 +18,12 @@
       "reason": null,
       "repositoryURL": "https://github.com/mominul/Spawn.git",
       "version": "0.0.4"
+    },
+    {
+      "package": "StringPlus",
+      "reason": null,
+      "repositoryURL": "https://github.com/mominul/StringPlus.git",
+      "version": "1.0.0"
     }
   ],
   "version": 1

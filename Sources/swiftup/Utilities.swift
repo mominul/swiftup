@@ -11,6 +11,7 @@
 import Glibc
 import Spawn
 import Environment
+import StringPlus
 
 func unimplemented() {
   print("Not Implemented!")
@@ -57,31 +58,5 @@ func getPlatformID() -> String {
     version = $0
   }
 
-  return version.trimmingWhitespacesAndNewlines().lowercased()
-}
-
-extension String {
-  func addingPath(_ path: String) -> String {
-    if (hasSuffix("/") && !path.hasPrefix("/")) || (!hasSuffix("/") && path.hasPrefix("/")) {
-      return self + path
-    } else if hasSuffix("/") && path.hasPrefix("/") {
-      return String(characters.dropLast(1)) + path
-    } else {
-      return self + "/" + path
-    }
-  }
-
-  var isUrl: Bool {
-    return hasPrefix("https://")
-  }
-
-  func trimmingWhitespacesAndNewlines() -> String {
-    let trimmingChars: [Character] = [" ", "\n"]
-
-    let chars = characters.filter { element in
-      !trimmingChars.contains { return $0 == element }
-    }
-
-    return String(chars)
-  }
+  return version.simplified().lowercased()
 }

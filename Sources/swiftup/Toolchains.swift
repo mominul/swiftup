@@ -11,6 +11,7 @@
 import Glibc
 import libNix
 import Environment
+import StringPlus
 
 struct Toolchains {
   var versioningFolder: String {
