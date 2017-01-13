@@ -13,3 +13,9 @@ echo "You might need to type your password for installation."
 sudo apt install tar curl gnupg clang libicu-dev
 
 echo "Done installaton of packages!"
+
+echo "Downloading swiftup"
+
+curl -L https://github.com/mominul/swiftup/releases/download/0.0.1/swiftup.tar.gz | tar xz -C ~
+
+echo "Configuring Environment"
