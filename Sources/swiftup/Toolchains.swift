@@ -57,8 +57,14 @@ struct Toolchains {
   }
 
   mutating func installToolchain(version: String) {
-    let distribution = Distribution(target: version)
+    installToolchain(distribution: Distribution(target: version))
+  }
 
+  mutating func installSnapshotToolchain() {
+    installToolchain(distribution: Distribution(type: .snapshot))
+  }
+
+  mutating func installToolchain(distribution: Distribution) {
     guard !isInstalled(version: distribution.versionName) else {
       print("Version \(distribution.versionName) is already installed!", color: .yellow)
       return

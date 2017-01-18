@@ -17,7 +17,12 @@ Group {
     description: "Install specified version of toolchain"
   ) { version in
     var toolchain = Toolchains()
-    toolchain.installToolchain(version: version)
+
+    if version == "snapshot" {
+      toolchain.installSnapshotToolchain()
+    } else {
+      toolchain.installToolchain(version: version)
+    }
   }
 
   $0.command("show",

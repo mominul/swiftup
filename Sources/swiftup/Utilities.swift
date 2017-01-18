@@ -22,7 +22,8 @@ func getTempDir() -> String {
   return Env["TMPDIR"] ?? "/tmp"
 }
 
-func run(program: String, arguments: [String]) {
+@discardableResult
+func run(program: String, arguments: [String]) -> String {
   /*
   let pipe = Pipe()
   let task = Process()
@@ -39,12 +40,17 @@ func run(program: String, arguments: [String]) {
   if output.characters.count > 2 {
     print(output)
   }*/
+  var output = ""
 
   do {
-    _ = try Spawn(args: [program] + arguments)
+    _ = try Spawn(args: [program] + arguments) {
+      output += $0
+    }
   } catch {
     print("error: \(error)", color: .red)
   }
+
+  return output
 }
 
 func moveItem(src: String, dest: String) {

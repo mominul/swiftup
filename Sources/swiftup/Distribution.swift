@@ -9,6 +9,12 @@
 */
 
 import StringPlus
+import libNix
+
+enum DistributionType {
+case release
+case snapshot
+}
 
 struct Distribution {
   var arrayOfUrl = [String]()
@@ -34,10 +40,35 @@ struct Distribution {
     }
   }
 
+  init(type: DistributionType) {
+    switch type {
+    case .snapshot:
+      snapshotToolchain()
+    default:
+      fatalError("Not Supported Distribution Type")
+    }
+  }
+
   mutating func makeDistributionFrom(version: String) {
     let osID = getPlatformID()
     let osIDN = osID.trimmingCharacters(in: ["."])
     let url = "https://swift.org/builds/swift-\(version)-release/\(osIDN)/swift-\(version)-RELEASE/swift-\(version)-RELEASE-\(osID).tar.gz"
+
+    downloadUrl = url
+    arrayOfUrl = url.characters.split(separator: "/").map(String.init)
+  }
+
+  mutating func snapshotToolchain() {
+    let osID = getPlatformID()
+    let osIDN = osID.trimmingCharacters(in: ["."])
+
+    print("Getting information about latest snapshot release", color: .green)
+
+    let output = run(program: "/usr/bin/curl", arguments: ["https://swift.org/download/"])
+    var regex = RegularExpression(pattern: "\\/(builds)\\/(development)\\/(\(osIDN))\\/.+(\\.gz)")
+    let matched = regex.getMatch(search: output)
+
+    let url = "https://swift.org/".addingPath(matched)
 
     downloadUrl = url
     arrayOfUrl = url.characters.split(separator: "/").map(String.init)
