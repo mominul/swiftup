@@ -45,6 +45,7 @@ echo "Configuring Environment"
 export SWIFTUP_ROOT="$HOME/.swiftup"
 export PATH="$SWIFTUP_ROOT/bin:$PATH"
 export PATH="$SWIFTUP_ROOT/shims:$PATH"
+~/.swiftup/bin/swiftup version
 
 setupShell()
 
