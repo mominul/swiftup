@@ -7,14 +7,20 @@ setupShell() {
     echo 'export SWIFTUP_ROOT="$HOME/.swiftup"' >> ~/.bash_profile
     echo 'export PATH="$SWIFTUP_ROOT/bin:$PATH"' >> ~/.bash_profile
     echo 'export PATH="$SWIFTUP_ROOT/shims:$PATH"' >> ~/.bash_profile
+    export SWIFTUP_ROOT="$HOME/.swiftup"
+    export PATH="$SWIFTUP_ROOT/bin:$PATH"
+    export PATH="$SWIFTUP_ROOT/shims:$PATH"
   elif [ -f "${HOME}/.bashrc" ]; then
     echo 'export SWIFTUP_ROOT="$HOME/.swiftup"' >> ~/.bashrc
     echo 'export PATH="$SWIFTUP_ROOT/bin:$PATH"' >> ~/.bashrc
     echo 'export PATH="$SWIFTUP_ROOT/shims:$PATH"' >> ~/.bashrc
+    export SWIFTUP_ROOT="$HOME/.swiftup"
+    export PATH="$SWIFTUP_ROOT/bin:$PATH"
+    export PATH="$SWIFTUP_ROOT/shims:$PATH"
   elif [ -f "${HOME}/.zshrc" ]; then
-    echo 'export SWIFTUP_ROOT="$HOME/.swiftup"' >> ~/.zshrc
-    echo 'export PATH="$SWIFTUP_ROOT/bin:$PATH"' >> ~/.zshrc
-    echo 'export PATH="$SWIFTUP_ROOT/shims:$PATH"' >> ~/.zshrc
+    export SWIFTUP_ROOT="$HOME/.swiftup"
+    export PATH="$SWIFTUP_ROOT/bin:$PATH"
+    export PATH="$SWIFTUP_ROOT/shims:$PATH"
   else
     echo "Failed to configure environment"
   fi
