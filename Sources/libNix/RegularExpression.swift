@@ -24,13 +24,13 @@ public struct RegularExpression {
     regcomp(&regex, pattern, REG_EXTENDED|REG_NEWLINE)
   }
 
-  public mutating func getMatch(search: String) -> String {
+  public mutating func getMatch(search: String) -> String? {
     var match = regmatch_t()
 
     let status = regexec(&regex, search, 1, &match, 0)
 
     guard status == 0 else {
-      return ""
+      return nil
     }
 
     let length = match.rm_eo - match.rm_so

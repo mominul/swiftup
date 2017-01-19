@@ -8,6 +8,7 @@
     Muhammad Mominul Huque
 */
 
+import Glibc
 import StringPlus
 import libNix
 
@@ -66,7 +67,11 @@ struct Distribution {
 
     let output = run(program: "/usr/bin/curl", arguments: ["https://swift.org/download/"])
     var regex = RegularExpression(pattern: "\\/(builds)\\/(development)\\/(\(osIDN))\\/.+(\\.gz)")
-    let matched = regex.getMatch(search: output)
+
+    guard let matched = regex.getMatch(search: output) else {
+      print("Failed to get information from swift.org", color: .red)
+      exit(1)
+    }
 
     let url = "https://swift.org/".addingPath(matched)
 
