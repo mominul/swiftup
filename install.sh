@@ -47,4 +47,7 @@ setupShell()
 if [[ -f "${HOME}/.swiftup/bin/swiftup" ]]; then
   echo "Successfully installed swiftup"
   ~/.swiftup/bin/swiftup version
+else
+  echo "Failed to install swiftup"
+  exit 1
 fi
