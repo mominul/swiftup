@@ -34,7 +34,7 @@ echo "Done installaton of packages!"
 
 echo "Downloading swiftup"
 
-curl -L https://github.com/mominul/swiftup/releases/download/0.0.1/swiftup.tar.gz | tar xz -C ~
+curl -L https://github.com/mominul/swiftup/releases/download/0.0.2/swiftup.tar.gz | tar xz -C ~
 
 echo "Configuring Environment"
 
