@@ -8,8 +8,11 @@
     Muhammad Mominul Huque
 */
 
+import libNix
 import Commander
 import Environment
+
+let ver = "0.0.2"
 
 Group {
   $0.command("install",
@@ -20,6 +23,9 @@ Group {
 
     if version == "snapshot" {
       toolchain.installSnapshotToolchain()
+    } else if version == "-s" {
+      let version = try! getContentsOf(file: Env["PWD"]!.addingPath(".swift-version"))
+      toolchain.installToolchain(version: version)
     } else {
       toolchain.installToolchain(version: version)
     }
@@ -50,5 +56,10 @@ Group {
     description: "Display which binary will be run for a given command") { command in
       let toolchain = Toolchains()
       print(toolchain.getBinaryPath().addingPath(command))
+    }
+
+  $0.command("version",
+    description: "Display swiftup version") {
+      print("swiftup \(ver)")
     }
 }.run()
