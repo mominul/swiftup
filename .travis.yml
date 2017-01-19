@@ -4,7 +4,7 @@ language: generic
 sudo: required
 dist: trusty
 install:
-- curl -L https://github.com/mominul/swiftup/blob/master/install.sh | sh
+- curl -s https://raw.githubusercontent.com/mominul/swiftup/master/install.sh | sh
 - swiftup install -s
 script:
 - make package
