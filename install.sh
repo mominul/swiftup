@@ -42,6 +42,10 @@ curl -L https://github.com/mominul/swiftup/releases/download/0.0.2/swiftup.tar.g
 
 echo "Configuring Environment"
 
+export SWIFTUP_ROOT="$HOME/.swiftup"
+export PATH="$SWIFTUP_ROOT/bin:$PATH"
+export PATH="$SWIFTUP_ROOT/shims:$PATH"
+
 setupShell()
 
 if [[ -f "${HOME}/.swiftup/bin/swiftup" ]]; then
