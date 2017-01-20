@@ -5,23 +5,19 @@
 setupShell() {
   if [ -f "$HOME/.bash_profile" ]; then
     echo 'export SWIFTUP_ROOT="$HOME/.swiftup"' >> ~/.bash_profile
-    echo 'export PATH="$SWIFTUP_ROOT/bin:$PATH"' >> ~/.bash_profile
-    echo 'export PATH="$SWIFTUP_ROOT/shims:$PATH"' >> ~/.bash_profile
+    echo 'export PATH="$SWIFTUP_ROOT/bin:$SWIFTUP_ROOT/shims:$PATH"' >> ~/.bash_profile
   elif [ -f "$HOME/.bashrc" ]; then
     echo 'export SWIFTUP_ROOT="$HOME/.swiftup"' >> ~/.bashrc
-    echo 'export PATH="$SWIFTUP_ROOT/bin:$PATH"' >> ~/.bashrc
-    echo 'export PATH="$SWIFTUP_ROOT/shims:$PATH"' >> ~/.bashrc
+    echo 'export PATH="$SWIFTUP_ROOT/bin:$SWIFTUP_ROOT/shims:$PATH"' >> ~/.bashrc
   elif [ -f "$HOME/.zshrc" ]; then
     echo 'export SWIFTUP_ROOT="$HOME/.swiftup"' >> ~/.zshrc
-    echo 'export PATH="$SWIFTUP_ROOT/bin:$PATH"' >> ~/.zshrc
-    echo 'export PATH="$SWIFTUP_ROOT/shims:$PATH"' >> ~/.zshrc
+    echo 'export PATH="$SWIFTUP_ROOT/bin:$SWIFTUP_ROOT/shims:$PATH"' >> ~/.zshrc
   else
     echo "Failed to configure environment"
   fi
 
   export SWIFTUP_ROOT="$HOME/.swiftup"
-  export PATH="$SWIFTUP_ROOT/bin:$PATH"
-  export PATH="$SWIFTUP_ROOT/shims:$PATH"
+  export PATH="$SWIFTUP_ROOT/bin:$SWIFTUP_ROOT/shims:$PATH"
 }
 
 echo "|-------------------------------------------|"
@@ -42,21 +38,12 @@ curl -L https://github.com/mominul/swiftup/releases/download/0.0.2/swiftup.tar.g
 
 echo "Configuring Environment"
 
-export SWIFTUP_ROOT="$HOME/.swiftup"
-export PATH="$SWIFTUP_ROOT/bin:$PATH"
-export PATH="$SWIFTUP_ROOT/shims:$PATH"
-~/.swiftup/bin/swiftup version
+setupShell
 
-echo "$PATH"
-
-if [ -x "$HOME/.swiftup/bin/swiftup" ]; then
+if [ -x "$(which swiftup)" ]; then
   echo "Successfully installed swiftup"
-  ~/.swiftup/bin/swiftup version
+  swiftup version
 else
   echo "Failed to install swiftup"
   exit 1
 fi
-
-which swiftup
-
-setupShell
