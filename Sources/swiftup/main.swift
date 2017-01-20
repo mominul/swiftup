@@ -12,7 +12,7 @@ import libNix
 import Commander
 import Environment
 
-let ver = "0.0.2"
+let ver = "0.0.4"
 
 Group {
   $0.command("install",

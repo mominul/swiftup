@@ -9,6 +9,7 @@
 */
 
 import Glibc
+import libNix
 import Spawn
 import Environment
 import StringPlus
@@ -64,5 +65,6 @@ func getPlatformID() -> String {
     version = $0
   }
 
-  return version.simplified().lowercased()
+  var regex = RegularExpression(pattern: "ubuntu[0-9]+\\.[0-9]+")
+  return regex.getMatch(search: version.simplified().lowercased())!
 }
