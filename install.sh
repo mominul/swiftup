@@ -47,7 +47,7 @@ export PATH="$SWIFTUP_ROOT/bin:$PATH"
 export PATH="$SWIFTUP_ROOT/shims:$PATH"
 ~/.swiftup/bin/swiftup version
 
-setupShell()
+echo $PATH
 
 if [[ -x "${HOME}/.swiftup/bin/swiftup" ]]; then
   echo "Successfully installed swiftup"
@@ -56,3 +56,7 @@ else
   echo "Failed to install swiftup"
   exit 1
 fi
+
+which swiftup
+
+setupShell()
