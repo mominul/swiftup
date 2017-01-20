@@ -5,6 +5,6 @@ sudo: required
 dist: trusty
 install:
 - eval "$(curl -s https://raw.githubusercontent.com/mominul/swiftup/master/install.sh)"
-- swiftup install -s
+- swiftup install default
 script:
 - make package

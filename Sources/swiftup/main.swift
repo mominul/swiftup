@@ -23,9 +23,11 @@ Group {
 
     if version == "snapshot" {
       toolchain.installSnapshotToolchain()
-    } else if version == "-s" {
+    } else if version == "default" {
       let version = try! getContentsOf(file: Env["PWD"]!.addingPath(".swift-version"))
-      toolchain.installToolchain(version: version)
+      if version.simplified() == "snapshot" {
+        toolchain.installSnapshotToolchain()
+      }
     } else {
       toolchain.installToolchain(version: version)
     }
