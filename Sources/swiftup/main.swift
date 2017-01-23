@@ -11,6 +11,7 @@
 import libNix
 import Commander
 import Environment
+import SwiftupFramework
 
 let ver = "0.0.4"
 

@@ -3,7 +3,7 @@ import PackageDescription
 let package = Package(
   name: "swiftup",
   targets: [
-    Target(name: "swiftup", dependencies: ["libNix"])
+    Target(name: "swiftup", dependencies: ["libNix", "SwiftupFramework"])
   ],
   dependencies: [
   .Package(url: "https://github.com/mominul/Commander.git", majorVersion: 0),

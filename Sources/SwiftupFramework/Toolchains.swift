@@ -13,7 +13,7 @@ import libNix
 import Environment
 import StringPlus
 
-struct Toolchains {
+public struct Toolchains {
   var versioningFolder: String {
     if let path = Env["SWIFTUP_ROOT"] {
       return path.addingPath("versions")
@@ -22,7 +22,7 @@ struct Toolchains {
     return ""
   }
 
-  var globalVersion: String {
+  public var globalVersion: String {
     get {
       //return (try? String(contentsOfFile: Env["SWIFTUP_ROOT"]!.addingPath("version"), encoding: .utf8)) ?? ""
       return (try? getContentsOf(file: Env["SWIFTUP_ROOT"]!.addingPath("version"))) ?? ""
@@ -38,13 +38,17 @@ struct Toolchains {
     }
   }
 
-  func installedVersions() -> [String]? {
+  public init() {
+      //
+  }
+
+  public func installedVersions() -> [String]? {
     //let paths = try? FileManager.default.contentsOfDirectory(atPath: versioningFolder)
     let paths = try? contentsOfDirectory(atPath: versioningFolder)
     return paths
   }
 
-  func isInstalled(version: String) -> Bool {
+  public func isInstalled(version: String) -> Bool {
     if let versions = installedVersions() {
       return versions.contains { $0 == version }
     }
@@ -52,15 +56,15 @@ struct Toolchains {
     return false
   }
 
-  func getBinaryPath() -> String {
+  public func getBinaryPath() -> String {
     return versioningFolder.addingPath(globalVersion).addingPath("usr/bin/")
   }
 
-  mutating func installToolchain(version: String) {
+  public mutating func installToolchain(version: String) {
     installToolchain(distribution: Distribution(target: version))
   }
 
-  mutating func installSnapshotToolchain() {
+  public mutating func installSnapshotToolchain() {
     installToolchain(distribution: Distribution(type: .snapshot))
   }
 
