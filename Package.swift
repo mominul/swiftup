@@ -3,6 +3,7 @@ import PackageDescription
 let package = Package(
   name: "swiftup",
   targets: [
+    Target(name: "SwiftupFramework", dependencies: ["libNix"]),
     Target(name: "swiftup", dependencies: ["libNix", "SwiftupFramework"])
   ],
   dependencies: [
