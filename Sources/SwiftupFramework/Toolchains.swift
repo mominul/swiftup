@@ -93,19 +93,19 @@ public struct Toolchains {
 
     print("Downloading toolchain \(distribution.downloadUrl)", color: .white)
 
-    run(program: "/usr/bin/curl", arguments: ["-C", "-", "\(distribution.downloadUrl)", "-o", "\(tempFile)"])
+    try run(program: "/usr/bin/curl", arguments: ["-C", "-", "\(distribution.downloadUrl)", "-o", "\(tempFile)"])
 
     guard fileExists(atPath: tempFile) else {
       throw SwiftupError.installationError(description: "Error occurred when downloading the toolchain")
     }
 
-    run(program: "/bin/tar", arguments: ["xzf", "\(tempFile)", "-C", "\(tempDir)"])
+    try run(program: "/bin/tar", arguments: ["xzf", "\(tempFile)", "-C", "\(tempDir)"])
 
     guard fileExists(atPath: tempEFile) else {
       throw SwiftupError.installationError(description: "Error occurred when extracting the toolchain")
     }
 
-    moveItem(src: tempEFile, dest: installDir)
+    try moveItem(src: tempEFile, dest: installDir)
 
     guard fileExists(atPath: installDir) else {
       throw SwiftupError.installationError(description: "Error occurred when installing the toolchain")
@@ -121,7 +121,7 @@ public struct Toolchains {
       let script = "#!/usr/bin/env bash\nset -e\nexec `swiftup which \(name)` $@\n"
       let shims = Env["SWIFTUP_ROOT"]!.addingPath("shims/\(name)")
       try! writeTo(file: shims, with: script)
-      run(program: "/bin/chmod", arguments: ["+x", shims])
+      try! run(program: "/bin/chmod", arguments: ["+x", shims])
     }
 
     for binary in binaries {

@@ -24,23 +24,7 @@ func getTempDir() -> String {
 }
 
 @discardableResult
-func run(program: String, arguments: [String]) -> String {
-  /*
-  let pipe = Pipe()
-  let task = Process()
-
-  task.launchPath = program
-  task.arguments = arguments
-  task.standardOutput = pipe
-
-  task.launch()
-  task.waitUntilExit()
-
-  let output = String(data: pipe.fileHandleForReading.readDataToEndOfFile(), encoding: .utf8)!
-
-  if output.characters.count > 2 {
-    print(output)
-  }*/
+func run(program: String, arguments: [String]) throws -> String {
   var output = ""
 
   do {
@@ -48,14 +32,14 @@ func run(program: String, arguments: [String]) -> String {
       output += $0
     }
   } catch {
-    print("error: \(error)", color: .red)
+    throw SwiftupError.internalError(description: "\(error)")
   }
 
   return output
 }
 
-func moveItem(src: String, dest: String) {
-  run(program: "/bin/mv", arguments: ["\(src)", "\(dest)"])
+func moveItem(src: String, dest: String) throws {
+  try run(program: "/bin/mv", arguments: ["\(src)", "\(dest)"])
 }
 
 func getPlatformID() -> String {

@@ -65,7 +65,7 @@ struct Distribution {
 
     print("Getting information about latest snapshot release", color: .green)
 
-    let output = run(program: "/usr/bin/curl", arguments: ["https://swift.org/download/"])
+    let output = try! run(program: "/usr/bin/curl", arguments: ["https://swift.org/download/"])
     var regex = RegularExpression(pattern: "\\/(builds)\\/(development)\\/(\(osIDN))\\/.+(\\.gz)")
 
     guard let matched = regex.getMatch(search: output) else {
