@@ -20,18 +20,7 @@ Group {
     Argument<String>("version"),
     description: "Install specified version of toolchain"
   ) { version in
-    var toolchain = Toolchains()
-
-    if version == "snapshot" {
-      toolchain.installSnapshotToolchain()
-    } else if version == "default" {
-      let version = try! getContentsOf(file: Env["PWD"]!.addingPath(".swift-version"))
-      if version.simplified() == "snapshot" {
-        toolchain.installSnapshotToolchain()
-      }
-    } else {
-      toolchain.installToolchain(version: version)
-    }
+    installToolchain(argument: version)
   }
 
   $0.command("show",

@@ -8,7 +8,7 @@
     Muhammad Mominul Huque
 */
 
-public enum SwiftupFramework: Error, CustomStringConvertible {
+public enum SwiftupError: Error, CustomStringConvertible {
   case installationError(description: String)
   case internalError(description: String)
 

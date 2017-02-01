@@ -60,29 +60,29 @@ public struct Toolchains {
     return versioningFolder.addingPath(globalVersion).addingPath("usr/bin/")
   }
 
-  public mutating func installToolchain(version: String) {
-    installToolchain(distribution: Distribution(target: version))
+  public mutating func installToolchain(version: String) throws {
+    try installToolchain(distribution: Distribution(target: version))
   }
 
-  public mutating func installSnapshotToolchain() {
-    installToolchain(distribution: Distribution(type: .snapshot))
+  public mutating func installSnapshotToolchain() throws {
+    try installToolchain(distribution: Distribution(type: .snapshot))
   }
 
-  mutating func installToolchain(distribution: Distribution) {
+  mutating func installToolchain(distribution: Distribution) throws {
     guard !isInstalled(version: distribution.versionName) else {
       print("Version \(distribution.versionName) is already installed!", color: .yellow)
       return
     }
 
     print("Will install version \(distribution.versionName)", color: .blue)
-    installTarToolchain(distribution: distribution)
+    try installTarToolchain(distribution: distribution)
     print("Version \(distribution.versionName) has been installed!")
 
     globalVersion = distribution.versionName
     rehashToolchain()
   }
 
-  func installTarToolchain(distribution: Distribution) {
+  func installTarToolchain(distribution: Distribution) throws {
     let tempDir = getTempDir().addingPath("swiftup-\(distribution.versionName)")
     let tempFile = tempDir.addingPath("toolchain.tar.gz")
     let tempEFile = tempDir.addingPath("\(distribution.fileName)")
@@ -96,22 +96,19 @@ public struct Toolchains {
     run(program: "/usr/bin/curl", arguments: ["-C", "-", "\(distribution.downloadUrl)", "-o", "\(tempFile)"])
 
     guard fileExists(atPath: tempFile) else {
-      print("Error occurred when downloading the toolchain", color: .red)
-      exit(1)
+      throw SwiftupError.installationError(description: "Error occurred when downloading the toolchain")
     }
 
     run(program: "/bin/tar", arguments: ["xzf", "\(tempFile)", "-C", "\(tempDir)"])
 
     guard fileExists(atPath: tempEFile) else {
-      print("Error occurred when extracting the toolchain", color: .red)
-      exit(1)
+      throw SwiftupError.installationError(description: "Error occurred when extracting the toolchain")
     }
 
     moveItem(src: tempEFile, dest: installDir)
 
     guard fileExists(atPath: installDir) else {
-      print("Error occurred when installing the toolchain", color: .red)
-      exit(1)
+      throw SwiftupError.installationError(description: "Error occurred when installing the toolchain")
     }
   }
 
