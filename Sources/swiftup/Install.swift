@@ -22,6 +22,8 @@ func installToolchain(argument: String) {
       let version = try! getContentsOf(file: Env["PWD"]!.addingPath(".swift-version"))
       if version.simplified() == "snapshot" {
         try toolchain.installSnapshotToolchain()
+      } else {
+        try toolchain.installToolchain(version: version.simplified())
       }
     } else {
       try toolchain.installToolchain(version: argument)
