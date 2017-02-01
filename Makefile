@@ -1,5 +1,5 @@
 build:
-	swift build -c release -Xswiftc -static-stdlib
+	swift build -c release -Xswiftc -static-executable
 mkdirs: build
 	mkdir -p .build/.swiftup/bin
 	mkdir -p .build/.swiftup/shims

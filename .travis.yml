@@ -7,4 +7,4 @@ install:
 - eval "$(curl -s https://raw.githubusercontent.com/mominul/swiftup/master/install.sh)"
 - swiftup install default
 script:
-- make package
+- swift build
