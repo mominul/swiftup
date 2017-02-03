@@ -93,7 +93,8 @@ public struct Toolchains {
 
     print("Downloading toolchain \(distribution.downloadUrl)", color: .white)
 
-    try run(program: "/usr/bin/curl", arguments: ["-C", "-", "\(distribution.downloadUrl)", "-o", "\(tempFile)"])
+    let output = try run(program: "/usr/bin/curl", arguments: ["-C", "-", "\(distribution.downloadUrl)", "-o", "\(tempFile)"])
+    print(output)
 
     guard fileExists(atPath: tempFile) else {
       throw SwiftupError.installationError(description: "Error occurred when downloading the toolchain")
