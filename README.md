@@ -30,3 +30,26 @@ You can also install a specific version of snapshot by passing its download URL 
 ```
 swiftup install https://swift.org/builds/development/ubuntu1610/swift-DEVELOPMENT-SNAPSHOT-2017-02-01-a/swift-DEVELOPMENT-SNAPSHOT-2017-02-01-a-ubuntu16.10.tar.gz
 ```
+
+You can also create a `.swift-version` file and specify your version there. After that you can then install that version by:
+```
+swiftup install default
+```  
+
+#### show
+It will show all the installed toolchains.
+
+#### global
+It will set the global toolchain version.
+
+```
+$ swiftup show
+DEVELOPMENT-SNAPSHOT-2017-01-05-a
+3.0.2-RELEASE
+DEVELOPMENT-SNAPSHOT-2017-01-18-a
+
+$ swiftup global 3.0.2-RELEASE
+```
+
+#### which
+It will display which binary will be run for a given command.
