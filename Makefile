@@ -7,3 +7,5 @@ mkdirs: build
 package: build mkdirs
 	cp .build/release/swiftup .build/.swiftup/bin
 	cd .build && tar -czvf swiftup.tar.gz .swiftup/ && cd ..
+install: build
+	cp .build/debug/swiftup ~/.swiftup/bin/
