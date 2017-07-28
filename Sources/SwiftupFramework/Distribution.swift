@@ -63,6 +63,11 @@ struct Distribution {
     let osID = getPlatformID()
     let osIDN = osID.trimmingCharacters(in: ["."])
 
+    // Fix for Ubuntu 17.04
+    if osIDN == "ubuntu1704" {
+      osIDN = "ubuntu1610"
+    }
+
     print("Getting information about latest snapshot release", color: .green)
 
     let output = try! run(program: "/usr/bin/curl", arguments: ["https://swift.org/download/"])
