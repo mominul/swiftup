@@ -25,7 +25,7 @@ func getTempDir() -> String {
 
 @discardableResult
 func run(program: String, arguments: [String]) throws -> String {
-  let result = Process.exec(program + " " + arguments.joined(separator: " "))
+  let result = Process.exec(program + arguments.joined(separator: " "))
   return result.stdout
 }
 
@@ -36,7 +36,7 @@ func moveItem(src: String, dest: String) throws {
 func getPlatformID() -> String {
   var version = ""
 
-  let result = Process.exec("lsb_release -ds")
+  let result = Process.exec("ls -a -l")
   version = result.stdout
 
   var regex = RegularExpression(pattern: "ubuntu[0-9]+\\.[0-9]+")
