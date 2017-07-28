@@ -10,6 +10,6 @@ script:
 - swift build
 - cd .build/debug/
 #- cp swiftup ~/.swiftup/bin/
-- ./swiftup version
-- ./swiftup install snapshot
+- swiftup version
+- swiftup install snapshot
 - swift --version
