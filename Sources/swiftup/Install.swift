@@ -19,7 +19,7 @@ func installToolchain(argument: String) {
     if argument == "snapshot" {
       try toolchain.installSnapshotToolchain()
     } else if argument == "default" {
-      let version = try! getContentsOf(file: Env["PWD"]!.addingPath(".swift-version"))
+      let version = try getContentsOf(file: Env["PWD"]!.addingPath(".swift-version"))
       if version.simplified() == "snapshot" {
         try toolchain.installSnapshotToolchain()
       } else {
@@ -30,6 +30,8 @@ func installToolchain(argument: String) {
     }
   } catch let error as SwiftupError {
     print("\(error)", color: .red)
+  } catch NixError.fileOpenError {
+    print("There is no .swift-version file in current directory.", color: .red)
   } catch {
     fatalError("Unknown error occurred")
   }

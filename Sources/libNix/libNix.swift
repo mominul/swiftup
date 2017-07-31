@@ -2,8 +2,9 @@ import Glibc
 import StringPlus
 
 // This is only for compability...
-enum NixError: Error {
+public enum NixError: Error {
   case errorOccurred
+  case fileOpenError
 }
 
 public func contentsOfDirectory(atPath path: String) throws -> [String] {
@@ -36,7 +37,7 @@ public func getContentsOf(file: String) throws -> String {
   let fp = fopen(file, "r")
 
   if fp == nil {
-    throw NixError.errorOccurred
+    throw NixError.fileOpenError
   }
 
   let contents = UnsafeMutablePointer<CChar>.allocate(capacity: Int(BUFSIZ))
