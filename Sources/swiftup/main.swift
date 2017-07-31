@@ -13,7 +13,7 @@ import Commander
 import Environment
 import SwiftupFramework
 
-let ver = "0.0.6"
+let ver = "0.0.7"
 
 Group {
   $0.command("install",
