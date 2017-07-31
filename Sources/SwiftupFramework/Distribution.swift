@@ -52,7 +52,13 @@ struct Distribution {
 
   mutating func makeDistributionFrom(version: String) {
     let osID = getPlatformID()
-    let osIDN = osID.trimmingCharacters(in: ["."])
+    var osIDN = osID.trimmingCharacters(in: ["."])
+
+    // Fix for Ubuntu 17.04
+    if osIDN == "ubuntu1704" {
+      osIDN = "ubuntu1610"
+    }
+
     let url = "https://swift.org/builds/swift-\(version)-release/\(osIDN)/swift-\(version)-RELEASE/swift-\(version)-RELEASE-\(osID).tar.gz"
 
     downloadUrl = url
