@@ -17,38 +17,47 @@ eval "$(curl -s https://raw.githubusercontent.com/mominul/swiftup/master/install
 #### install
 To install a specific release of Swift, you can easily install it by specifying the version:
 ```
-swiftup install 3.0.2
+$ swiftup install 3.0.2
 ```
 Now swiftup will install the 3.0.2 version of Swift.
 
 To install the latest [**snapshot**](https://swift.org/download/#snapshots) version of Swift:
 ```
-swiftup install snapshot
+$ swiftup install snapshot
 ```
 
-You can also install a specific version of snapshot by passing its download URL directly to swiftup install.
+You can also install a specific version of snapshot by passing its download URL directly to `swiftup install`.
 ```
-swiftup install https://swift.org/builds/development/ubuntu1610/swift-DEVELOPMENT-SNAPSHOT-2017-02-01-a/swift-DEVELOPMENT-SNAPSHOT-2017-02-01-a-ubuntu16.10.tar.gz
+$ swiftup install https://swift.org/builds/development/ubuntu1610/swift-DEVELOPMENT-SNAPSHOT-2017-02-01-a/swift-DEVELOPMENT-SNAPSHOT-2017-02-01-a-ubuntu16.10.tar.gz
 ```
 
 You can also create a `.swift-version` file and specify your version there. After that you can then install that version by:
 ```
-swiftup install default
+$ swiftup install default
 ```  
 
 #### show
-It will show all the installed toolchains.
+Lists all installed Swift versions, showing an asterisk next to the currently active version.
+
+```
+$ swiftup show
+* 3.1.1-RELEASE
+  DEVELOPMENT-SNAPSHOT-2017-07-30-a
+
+* - Version currently in use
+```
 
 #### global
 It will set the global toolchain version.
 
 ```
 $ swiftup show
-DEVELOPMENT-SNAPSHOT-2017-01-05-a
-3.0.2-RELEASE
-DEVELOPMENT-SNAPSHOT-2017-01-18-a
+* 3.1.1-RELEASE
+  DEVELOPMENT-SNAPSHOT-2017-07-30-a
 
-$ swiftup global 3.0.2-RELEASE
+* - Version currently in use
+
+$ swiftup global DEVELOPMENT-SNAPSHOT-2017-07-30-a
 ```
 
 #### which

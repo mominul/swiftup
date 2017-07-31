@@ -29,8 +29,14 @@ Group {
     let toolchains = Toolchains()
     if let versions = toolchains.installedVersions() {
       versions.forEach {
-        print($0, color: .cyan)
+        if $0 == toolchains.globalVersion {
+          print(" * \($0)", color: .cyan)
+        } else {
+          print("   \($0)", color: .cyan)
+        }
       }
+      print("")
+      print(" * - Version currently in use")
     } else {
       print("No installed versions found!", color: .yellow)
     }
