@@ -1,0 +1,43 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "Commander",
+        "repositoryURL": "https://github.com/mominul/Commander.git",
+        "state": {
+          "branch": null,
+          "revision": "848d70c3f084b6d178dc4ab98b3097793dde486e",
+          "version": "0.7.0"
+        }
+      },
+      {
+        "package": "Environment",
+        "repositoryURL": "https://github.com/mominul/Environment.git",
+        "state": {
+          "branch": null,
+          "revision": "819de69fdbd1d13a47253bfff1a5588699941d84",
+          "version": "0.7.0"
+        }
+      },
+      {
+        "package": "Spawn",
+        "repositoryURL": "https://github.com/mominul/Spawn.git",
+        "state": {
+          "branch": null,
+          "revision": "0bc659704f1c6e1fe40bf48a7314376db0ee40f5",
+          "version": "0.0.5"
+        }
+      },
+      {
+        "package": "StringPlus",
+        "repositoryURL": "https://github.com/mominul/StringPlus.git",
+        "state": {
+          "branch": null,
+          "revision": "01ba70818b854871e5cbcaf0cc775696b2a07982",
+          "version": "1.0.0"
+        }
+      }
+    ]
+  },
+  "version": 1
+}

@@ -61,7 +61,7 @@ struct Distribution {
 
   mutating func snapshotToolchain() {
     let osID = getPlatformID()
-    let osIDN = osID.trimmingCharacters(in: ["."])
+    var osIDN = osID.trimmingCharacters(in: ["."])
 
     // Fix for Ubuntu 17.04
     if osIDN == "ubuntu1704" {
